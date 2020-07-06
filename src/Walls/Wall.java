@@ -1,4 +1,6 @@
 package Walls;
 
-public class Wall {
+import General.Entity;
+
+public class Wall extends Entity {
 }
