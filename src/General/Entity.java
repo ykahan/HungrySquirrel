@@ -12,6 +12,7 @@ public abstract class Entity {
         return oldEntity;
     }
 
+
     private boolean isWall(Entity entity){
         return entity.getClass().getName().contentEquals("Wall");
     }
