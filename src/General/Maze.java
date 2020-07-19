@@ -11,24 +11,25 @@ public class Maze {
     private static Entity[][] maze;
     private static Scanner scanner;
 
-    public Maze(){
+    public Maze() {
         maze = new Entity[maxRow][maxColumn];
         create();
     }
 
-    public static void create(){
+    public static void create() {
         defineScanner();
-        try{
-            for(int row = 0; row < maxRow; row++){
+        try {
+            for (int row = 0; row < maxRow; row++) {
                 char[] chars = scanner.nextLine().toCharArray();
-                for(int column = 0; column < maxColumn; column++){
+                for (int column = 0; column < maxColumn; column++) {
                     Entity entity = null;
-                    if(chars[row] == '*') entity = new Wall();
+                    if (chars[row] == '*') entity = new Wall();
+                    else if(chars[row] == ' ') entity = new Placeholder();
 
                     maze[row][column] = entity;
                 }
             }
-        } catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.toString());
         }
         scanner.close();
@@ -37,9 +38,9 @@ public class Maze {
     private static void defineScanner() {
         String filename = "C:\\Users\\yehos\\Programming\\Anton Files\\HungrySquirrel\\Maze.txt";
         File file = new File(filename);
-        try{
+        try {
             scanner = new Scanner(file);
-        } catch(Exception e){
+        } catch (Exception e) {
 
         }
     }
@@ -52,25 +53,42 @@ public class Maze {
         maze[newRow][newColumn] = entity;
     }
 
-    @Override
-    public String toString(){
-        String description = "";
+    public String describe(){
+        String str = "";
         for(int row = 0; row < maxRow; row++){
             for(int column = 0; column < maxColumn; column++){
-                Entity entity = maze[row][column];
-                if(column == 0 && row > 0) description += "\n";
-                if(entity != null){{
-                    if(entity.getClass().getName().contentEquals("Wall)")){
-                        description += "*";
-                    }
-                }
-                } else description += " ";
+                Entity entity = getEntity(row, column);
+                if(column == 0 && row > 0) str += "\n";
+                if(entity.getClass().equals(new Wall().getClass())) str += "W ";
+                else if (entity.getClass().equals(new Placeholder().getClass())) str += "P ";
             }
         }
+        return str;
+    }
+
+    @Override
+    public String toString() {
+        String description = "";
+        for (int row = 0; row < maxRow; row++) {
+            for (int column = 0; column < maxColumn; column++) {
+                if (column == 0 && row > 0) {
+                    description += "\n";
+                }
+
+                Entity entity = getEntity(row, column);
+                if (entity.getClass().equals(new Wall().getClass())) {
+                    description += "*";
+                } else if (entity.getClass().equals(new Placeholder().getClass())){
+                    description += " ";
+                }
+
+            }
+        }
+        description = description;
         return description;
     }
 
-    public void display(){
+    public void display() {
         System.out.println(toString());
     }
 

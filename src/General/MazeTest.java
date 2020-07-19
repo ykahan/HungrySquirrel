@@ -33,10 +33,22 @@ class MazeTest {
     }
 
     @Test
+    void testDescribe(){
+        Maze maze = new Maze();
+        System.out.println(maze.describe());
+    }
+
+    @Test
     void testToString() {
+        Maze maze = new Maze();
+        String string = maze.toString();
+        int length = string.length();
+//        assert (length == 1000);
+        maze.display();
     }
 
     @Test
     void display() {
+
     }
 }
