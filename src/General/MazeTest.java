@@ -27,6 +27,9 @@ class MazeTest {
 
     @Test
     void setEntity() {
+        Maze maze = new Maze();
+        maze.setEntity(null, 0, 0);
+        assertNull(maze.getEntity(7, 3), "'Error: Entity not null");
     }
 
     @Test
