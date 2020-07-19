@@ -14,22 +14,22 @@ class MazeTest {
     }
 
     @Test
-    void createMakesNulls(){
+    void createMakesPlaceholder(){
         Maze maze = new Maze();
-        assertNull(maze.getEntity(7, 3), "'Error: Entity not null");
+        assertEquals(maze.getEntity(7, 3).getClass().getName(), "General.Placeholder");
     }
 
     @Test
-    void getEntity() {
+    void testGetEntity() {
         Maze maze = new Maze();
         assertEquals(maze.getEntity(0, 0).getClass().getName(), "Walls.Wall");
     }
 
     @Test
-    void setEntity() {
+    void testSetEntity() {
         Maze maze = new Maze();
-        maze.setEntity(null, 0, 0);
-        assertNull(maze.getEntity(7, 3), "'Error: Entity not null");
+        maze.setEntity(new Placeholder(), 0, 0);
+        assertEquals(maze.getEntity(7, 3).getClass().getName(), "General.Placeholder");
     }
 
     @Test
@@ -43,12 +43,11 @@ class MazeTest {
         Maze maze = new Maze();
         String string = maze.toString();
         int length = string.length();
-//        assert (length == 1000);
-        maze.display();
+        assert (length == 1019);
     }
 
     @Test
-    void display() {
+    void testDisplay() {
 
     }
 }

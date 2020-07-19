@@ -21,10 +21,10 @@ public class Maze {
         try {
             for (int row = 0; row < maxRow; row++) {
                 char[] chars = scanner.nextLine().toCharArray();
-                for (int column = 0; column < maxColumn; column++) {
+                for (int column = 0; column < maxColumn; column++){
                     Entity entity = null;
-                    if (chars[row] == '*') entity = new Wall();
-                    else if(chars[row] == ' ') entity = new Placeholder();
+                    if (chars[column] == '*') entity = new Wall();
+                    else entity = new Placeholder();
 
                     maze[row][column] = entity;
                 }
