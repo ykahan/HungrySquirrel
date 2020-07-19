@@ -21,6 +21,8 @@ class MazeTest {
 
     @Test
     void getEntity() {
+        Maze maze = new Maze();
+        assertEquals(maze.getEntity(0, 0).getClass().getName(), "Walls.Wall");
     }
 
     @Test
