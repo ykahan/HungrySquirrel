@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SquirrelTest {
     @Test
-    void testLocAvailableOpenSpace(){
+    void testLocAvailableCoordinateIsAvailable(){
         Movable squirrel = new Squirrel();
         Maze maze = new Maze();
         boolean isOpenSpace = squirrel.locAvailable(maze, 10, 10);
@@ -15,7 +15,7 @@ class SquirrelTest {
     }
 
     @Test
-    void testLocAvailableWall(){
+    void testLocAvailableCoordinateIsNotAvailable(){
         Movable squirrel = new Squirrel();
         Maze maze = new Maze();
         boolean isWall = !squirrel.locAvailable(maze, 12, 20);
