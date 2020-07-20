@@ -8,17 +8,44 @@ import static org.junit.jupiter.api.Assertions.*;
 class SquirrelTest {
     @Test
     void testLocAvailableCoordinateIsAvailable(){
-        Maze maze = new Maze();
-        Movable squirrel = new Squirrel(maze);
-        boolean isOpenSpace = squirrel.locAvailable(maze, 10, 10);
+        Movable squirrel = new Squirrel();
+        boolean isOpenSpace = squirrel.locAvailable(10, 10);
         assertTrue(isOpenSpace);
     }
 
     @Test
     void testLocAvailableCoordinateIsNotAvailable(){
-        Maze maze = new Maze();
-        Movable squirrel = new Squirrel(maze);
-        boolean isWall = !squirrel.locAvailable(maze, 12, 20);
+        Movable squirrel = new Squirrel();
+        boolean isWall = !squirrel.locAvailable(12, 20);
         assertTrue(isWall);
     }
+
+    @Test
+    void testLocAvailableNegXCoordinateIsOutsideMaze(){
+        Movable squirrel = new Squirrel(15, 10);
+        boolean isOutsideMaze = !squirrel.locAvailable(-5, 15);
+        assertTrue(isOutsideMaze);
+    }
+
+    @Test
+    void testLocAvailableNegYCoordinateIsOutsideMaze(){
+        Movable squirrel = new Squirrel(15, 10);
+        boolean isOutsideMaze = !squirrel.locAvailable(5, -5);
+        assertTrue(isOutsideMaze);
+    }
+
+    @Test
+    void testLocAvailableHighXCoordinateIsOutsideMaze(){
+        Movable squirrel = new Squirrel(15, 10);
+        boolean isOutsideMaze = !squirrel.locAvailable(100, 10);
+        assertTrue(isOutsideMaze);
+    }
+
+    @Test
+    void testLocAvailableHighYCoordinateIsOutsideMaze(){
+        Movable squirrel = new Squirrel(15, 10);
+        boolean isOutsideMaze = !squirrel.locAvailable(10, 100);
+        assertTrue(isOutsideMaze);
+    }
+
 }

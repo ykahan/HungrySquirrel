@@ -7,26 +7,39 @@ import General.OpenSpace;
 import Walls.Wall;
 
 import java.util.Scanner;
+import Messages.Messages;
 
 public class Squirrel implements Movable{
     private Location location;
     private Scanner scanner = new Scanner(System.in);
     private Maze maze;
 
-    public Squirrel(Maze maze){
-        this.maze = maze;
+    public Squirrel(int row, int column){
+        this.maze = new Maze();
+        this.location = new Location(row, column);
+    }
+
+    public Squirrel(){
         boolean foundAvailableLoc = false;
         int row = -1;
         int column = -1;
         while(!foundAvailableLoc){
-            System.out.println("Row: ");
-            row = Integer.parseInt(scanner.nextLine());
-            System.out.println("Column: ");
+            Messages.getRow();
+            try{row = Integer.parseInt(scanner.nextLine());}
+            catch(Exception e) {
+                Messages.invalidInput();
+                continue;
+            }
+            Messages.getColumn();
             column = Integer.parseInt(scanner.nextLine());
-            foundAvailableLoc = locAvailable(maze, row, column);
-            if(!foundAvailableLoc) System.out.println("Location not available, try again.");
+            foundAvailableLoc = locAvailable(row, column);
+            if(!foundAvailableLoc) Messages.locationInvalid();
         }
-        this.location = new Location(row, column);
+        new Squirrel(row, column);
+    }
+
+    public Maze getMaze(){
+        return this.maze;
     }
 
     public static void main(String[] args) {
