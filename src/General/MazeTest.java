@@ -15,7 +15,7 @@ class MazeTest {
     @Test
     void createMakesPlaceholder(){
         Maze maze = new Maze();
-        assertEquals(maze.getEntity(7, 3).getClass().getName(), "General.Placeholder");
+        assertTrue(maze.getEntity(7, 3) instanceof OpenSpace);
     }
 
     @Test
@@ -28,7 +28,7 @@ class MazeTest {
     void testSetEntity() {
         Maze maze = new Maze();
         maze.setEntity(new OpenSpace(), 0, 0);
-        assertEquals(maze.getEntity(7, 3).getClass().getName(), "General.Placeholder");
+        assertTrue(maze.getEntity(7, 3) instanceof OpenSpace);
     }
 
     @Test
