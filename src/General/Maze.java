@@ -6,22 +6,22 @@ import java.io.File;
 import java.util.Scanner;
 
 public class Maze {
-    private static final int maxRow = 20;
-    private static final int maxColumn = 50;
+    private static final int MAX_ROW = 20;
+    private static final int MAX_COLUMN = 50;
     private static Entity[][] maze;
     private static Scanner scanner;
 
     public Maze() {
-        maze = new Entity[maxRow][maxColumn];
+        maze = new Entity[MAX_ROW][MAX_COLUMN];
         create();
     }
 
     public static void create() {
         defineScanner();
         try {
-            for (int row = 0; row < maxRow; row++) {
+            for (int row = 0; row < MAX_ROW; row++) {
                 char[] chars = scanner.nextLine().toCharArray();
-                for (int column = 0; column < maxColumn; column++) {
+                for (int column = 0; column < MAX_COLUMN; column++) {
                     Entity entity = null;
                     if (chars[column] == '*') entity = new Wall();
                     else entity = new OpenSpace();
@@ -56,8 +56,8 @@ public class Maze {
     @Override
     public String toString() {
         String description = "";
-        for (int row = 0; row < maxRow; row++) {
-            for (int column = 0; column < maxColumn; column++) {
+        for (int row = 0; row < MAX_ROW; row++) {
+            for (int column = 0; column < MAX_COLUMN; column++) {
                 if (column == 0 && row > 0) {
                     description += "\n";
                 }
@@ -78,4 +78,11 @@ public class Maze {
         System.out.println(toString());
     }
 
+    public int getMaxRow() {
+        return MAX_ROW;
+    }
+
+    public int getMaxColumn(){
+        return MAX_COLUMN;
+    }
 }
