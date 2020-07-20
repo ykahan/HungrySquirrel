@@ -3,7 +3,6 @@ package Pixies;
 import General.Entity;
 import General.Location;
 import General.Maze;
-import General.OpenSpace;
 import Walls.Wall;
 
 import java.util.Scanner;
@@ -29,24 +28,11 @@ public class Squirrel implements Movable {
         boolean foundAvailableLoc = false;
         int row = -1;
         int column = -1;
-        while (!foundAvailableLoc) {
-            if (row == -1) {
-                Messages.getRow();
-                try {
-                    row = Integer.parseInt(scanner.nextLine());
-                } catch (Exception e) {
-                    Messages.invalidInput();
-                }
-            }
-            Messages.getColumn();
-            try {
-                column = Integer.parseInt(scanner.nextLine());
-            } catch (Exception e) {
-                Messages.invalidInput();
-            }
-            foundAvailableLoc = locAvailable(row, column);
-            if (!foundAvailableLoc) Messages.locationInvalid();
-        }
+
+        SetRowAndColumn setRowAndColumn = new SetRowAndColumn(foundAvailableLoc, row, column).invoke();
+        row = setRowAndColumn.getRow();
+        column = setRowAndColumn.getColumn();
+
         location = new Location(row, column);
     }
 
@@ -77,5 +63,107 @@ public class Squirrel implements Movable {
         if (row < 0 || column < 0) return true;
         if (row > maze.getMaxRow() || column > maze.getMaxColumn()) return true;
         return false;
+    }
+
+    private class SetRow {
+        private boolean myResult;
+        private int row;
+
+        public SetRow(int row) {
+            this.row = row;
+        }
+
+        boolean is() {
+            return myResult;
+        }
+
+        public int getRow() {
+            return row;
+        }
+
+        public SetRow invoke() {
+            Messages.getRow();
+            try {
+                row = Integer.parseInt(scanner.nextLine());
+            } catch (Exception e) {
+                Messages.invalidInput();
+                myResult = true;
+                return this;
+            }
+            myResult = false;
+            return this;
+        }
+    }
+
+    private class SetColumn {
+        private boolean myResult;
+        private int column;
+
+        public SetColumn(int column) {
+            this.column = column;
+        }
+
+        boolean is() {
+            return myResult;
+        }
+
+        public int getColumn() {
+            return column;
+        }
+
+        public SetColumn invoke() {
+            Messages.getColumn();
+            try {
+                column = Integer.parseInt(scanner.nextLine());
+            } catch (Exception e) {
+                Messages.invalidInput();
+                myResult = true;
+                return this;
+            }
+            myResult = false;
+            return this;
+        }
+    }
+
+    private class SetRowAndColumn {
+        private boolean foundAvailableLoc;
+        private int row;
+        private int column;
+
+        public SetRowAndColumn(boolean foundAvailableLoc, int row, int column) {
+            this.foundAvailableLoc = foundAvailableLoc;
+            this.row = row;
+            this.column = column;
+        }
+
+        public int getRow() {
+            return row;
+        }
+
+        public int getColumn() {
+            return column;
+        }
+
+        public SetRowAndColumn invoke() {
+            while (!foundAvailableLoc) {
+                if (row == -1) {
+                    SetRow setRow = new SetRow(row).invoke();
+                    if (setRow.is()) continue;
+                    row = setRow.getRow();
+                }
+                SetColumn setColumn = new SetColumn(column).invoke();
+                if (setColumn.is()) continue;
+                column = setColumn.getColumn();
+
+                foundAvailableLoc = locAvailable(row, column);
+
+                if (!foundAvailableLoc) {
+                    Messages.locationInvalid();
+                    row = -1;
+                    column = -1;
+                }
+            }
+            return this;
+        }
     }
 }
