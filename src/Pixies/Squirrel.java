@@ -33,21 +33,21 @@ public class Squirrel implements Movable{
         Maze testMaze = new Maze();
     }
 
-    public boolean locAvailable(Maze maze, int row, int column){
-        if (locIsOutsideMaze(maze, row, column)) return false;
+    public boolean locAvailable(int row, int column){
+        if (locIsOutsideMaze(row, column)) return false;
 
         Entity entity = maze.getEntity(row, column);
         return !(entity instanceof Wall);
     }
 
-    public boolean locNotAvailable(Maze maze, int row, int column){
-        if(locIsOutsideMaze(maze, row, column)) return true;
+    public boolean locNotAvailable(int row, int column){
+        if(locIsOutsideMaze(row, column)) return true;
 
         Entity entity = maze.getEntity(row, column);
         return entity instanceof Wall;
     }
 
-    private boolean locIsOutsideMaze(Maze maze, int row, int column) {
+    private boolean locIsOutsideMaze(int row, int column) {
         if(row < 0 || column < 0) return true;
         if(row > maze.getMaxRow() || column > maze.getMaxColumn()) return true;
         return false;
