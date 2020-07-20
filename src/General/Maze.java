@@ -21,10 +21,10 @@ public class Maze {
         try {
             for (int row = 0; row < maxRow; row++) {
                 char[] chars = scanner.nextLine().toCharArray();
-                for (int column = 0; column < maxColumn; column++){
+                for (int column = 0; column < maxColumn; column++) {
                     Entity entity = null;
                     if (chars[column] == '*') entity = new Wall();
-                    else entity = new Placeholder();
+                    else entity = new OpenSpace();
 
                     maze[row][column] = entity;
                 }
@@ -53,19 +53,6 @@ public class Maze {
         maze[newRow][newColumn] = entity;
     }
 
-    public String describe(){
-        String str = "";
-        for(int row = 0; row < maxRow; row++){
-            for(int column = 0; column < maxColumn; column++){
-                Entity entity = getEntity(row, column);
-                if(column == 0 && row > 0) str += "\n";
-                if(entity.getClass().equals(new Wall().getClass())) str += "W ";
-                else if (entity.getClass().equals(new Placeholder().getClass())) str += "P ";
-            }
-        }
-        return str;
-    }
-
     @Override
     public String toString() {
         String description = "";
@@ -76,15 +63,14 @@ public class Maze {
                 }
 
                 Entity entity = getEntity(row, column);
-                if (entity.getClass().equals(new Wall().getClass())) {
+                if (entity instanceof Wall) {
                     description += "*";
-                } else if (entity.getClass().equals(new Placeholder().getClass())){
+                } else if (entity instanceof OpenSpace) {
                     description += " ";
                 }
 
             }
         }
-        description = description;
         return description;
     }
 
