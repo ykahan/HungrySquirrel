@@ -15,8 +15,8 @@ public class Squirrel implements Movable{
     private Maze maze;
 
     public Squirrel(int row, int column){
-        this.maze = new Maze();
-        this.location = new Location(row, column);
+       location = new Location(row, column);
+       maze = new Maze();
     }
 
     public Squirrel(){
@@ -35,7 +35,12 @@ public class Squirrel implements Movable{
             foundAvailableLoc = locAvailable(row, column);
             if(!foundAvailableLoc) Messages.locationInvalid();
         }
-        new Squirrel(row, column);
+        location = new Location(row, column);
+    }
+
+    public void setLocation(int row, int column){
+        this.location.setRow(row);
+        this.location.setColumn(column);
     }
 
     public Maze getMaze(){

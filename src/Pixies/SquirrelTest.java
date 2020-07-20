@@ -8,14 +8,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class SquirrelTest {
     @Test
     void testLocAvailableCoordinateIsAvailable(){
-        Movable squirrel = new Squirrel();
+        Movable squirrel = new Squirrel(14, 10);
         boolean isOpenSpace = squirrel.locAvailable(10, 10);
         assertTrue(isOpenSpace);
     }
 
     @Test
     void testLocAvailableCoordinateIsNotAvailable(){
-        Movable squirrel = new Squirrel();
+        Movable squirrel = new Squirrel(14, 10);
         boolean isWall = !squirrel.locAvailable(12, 20);
         assertTrue(isWall);
     }
