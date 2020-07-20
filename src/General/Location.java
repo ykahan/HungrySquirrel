@@ -9,6 +9,11 @@ public class Location {
         this.column = column;
     }
 
+    public Location(){
+        this.row = 0;
+        this.column = 0;
+    }
+
     public int getRow(){
         return row;
     }
@@ -31,5 +36,13 @@ public class Location {
 
     public void decrementColumn(){
         column--;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public void setColumn(int column){
+        this.column = column;
     }
 }
