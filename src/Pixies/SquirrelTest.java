@@ -48,4 +48,10 @@ class SquirrelTest {
         assertTrue(isOutsideMaze);
     }
 
+//    @Test
+    void testParamaterlessConstructor(){
+        Squirrel squirrel = new Squirrel();
+        assertTrue(squirrel instanceof Squirrel);
+    }
+
 }
