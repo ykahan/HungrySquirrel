@@ -36,6 +36,7 @@ public class Squirrel implements Movable{
             if(!foundAvailableLoc) Messages.locationInvalid();
         }
         location = new Location(row, column);
+        maze = new Maze();
     }
 
     public void setLocation(int row, int column){
