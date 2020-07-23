@@ -88,7 +88,7 @@ public class Squirrel implements Movable {
     public boolean locAvailable(int row, int column) {
         if (locIsOutsideMaze(row, column)) return false;
 
-        Entity entity = maze.getEntity(row, column);
+        Entity entity = maze.getEntity(row - 1, column - 1);
         return !(entity instanceof Wall);
     }
 
