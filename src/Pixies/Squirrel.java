@@ -13,6 +13,8 @@ public class Squirrel implements Movable {
     private Location location;
     private Scanner scanner = new Scanner(System.in);
     private Maze maze;
+    private int pointsCollected = 0;
+    private int totalNutsEaten = 0;
 
     public static void main(String[] args) {
         Squirrel sq = new Squirrel();
@@ -21,6 +23,22 @@ public class Squirrel implements Movable {
     public Squirrel(int row, int column) {
         location = new Location(row, column);
         maze = new Maze();
+    }
+
+    private int getNutsEaten(){
+        return totalNutsEaten;
+    }
+
+    private void incrementsNutsEaten(){
+        totalNutsEaten++;
+    }
+
+    public void increasePoints(int newPoints){
+        pointsCollected = pointsCollected + newPoints;
+    }
+
+    public int getPoints(){
+        return pointsCollected;
     }
 
     public Squirrel() {
