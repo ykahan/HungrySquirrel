@@ -73,6 +73,37 @@ public class Squirrel implements Movable {
         location = new Location(row, column);
     }
 
+    public void move(char direction){
+
+        int row = location.getRow();
+        int column = location.getColumn();
+
+        switch(direction){
+            case('u'):
+            case('U'):
+                row = row - 1;
+                break;
+            case('l'):
+            case('L'):
+                column = column - 1;
+                break;
+            case('d'):
+            case('D'):
+                row = row + 1;
+                break;
+            case('r'):
+            case('R'):
+                column = column + 1;
+                break;
+            default:
+                break;
+        }
+
+        if(locAvailable(row, column)) setLocation(row, column);
+        else Messages.invalidInput();
+
+    }
+
     public void setLocation(int row, int column) {
         this.location.setRow(row);
         this.location.setColumn(column);
