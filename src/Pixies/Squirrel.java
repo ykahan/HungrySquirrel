@@ -60,7 +60,7 @@ public class Squirrel implements Movable {
     }
 
     private boolean locIsOutsideMaze(int row, int column) {
-        if (row < 0 || column < 0) return true;
+        if (row <= 0 || column <= 0) return true;
         if (row > maze.getMaxRow() || column > maze.getMaxColumn()) return true;
         return false;
     }
