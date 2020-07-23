@@ -16,4 +16,8 @@ public class Messages {
     public static void locationInvalid(){
         System.out.println("Location not available.  Please try again.");
     }
+
+    public static void squirrelLocation() {
+        System.out.println("Now you must determine the squirrel's starting location.");
+    }
 }

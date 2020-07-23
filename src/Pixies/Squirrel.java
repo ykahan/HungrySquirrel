@@ -54,6 +54,13 @@ public class Squirrel implements Movable {
         location = new Location(row, column);
     }
 
+    public void create(){
+        Messages.squirrelLocation();
+        Messages.getRow();
+        try{int row = Integer.parseInt(scanner.nextLine());}
+        catch(Exception e){Messages.invalidInput();}
+    }
+
     public void setLocation(int row, int column) {
         this.location.setRow(row);
         this.location.setColumn(column);

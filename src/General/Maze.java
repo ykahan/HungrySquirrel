@@ -13,11 +13,11 @@ public class Maze {
 
     public Maze() {
         maze = new Entity[MAX_ROW][MAX_COLUMN];
+        defineScanner();
         create();
     }
 
     public static void create() {
-        defineScanner();
         try {
             for (int row = 0; row < MAX_ROW; row++) {
                 char[] chars = scanner.nextLine().toCharArray();
@@ -32,7 +32,6 @@ public class Maze {
         } catch (Exception e) {
             System.out.println(e.toString());
         }
-        scanner.close();
     }
 
     private static void defineScanner() {
