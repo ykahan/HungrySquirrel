@@ -15,50 +15,65 @@ public class Squirrel implements Movable {
     private Maze maze;
     private int pointsCollected = 0;
     private int totalNutsEaten = 0;
+    private int row = -1;
+    private int column = -1;
 
     public static void main(String[] args) {
         Squirrel sq = new Squirrel();
     }
 
     public Squirrel(int row, int column) {
-        location = new Location(row, column);
         maze = new Maze();
+        location = new Location(row, column);
     }
 
-    private int getNutsEaten(){
+    private int getNutsEaten() {
         return totalNutsEaten;
     }
 
-    private void incrementsNutsEaten(){
+    private void incrementsNutsEaten() {
         totalNutsEaten++;
     }
 
-    public void increasePoints(int newPoints){
+    public void increasePoints(int newPoints) {
         pointsCollected = pointsCollected + newPoints;
     }
 
-    public int getPoints(){
+    public int getPoints() {
         return pointsCollected;
     }
 
     public Squirrel() {
         maze = new Maze();
-        boolean foundAvailableLoc = false;
         int row = -1;
         int column = -1;
-
-        SetRowAndColumn setRowAndColumn = new SetRowAndColumn(foundAvailableLoc, row, column).invoke();
+        create();
+//        SetRowAndColumn setRowAndColumn = new SetRowAndColumn(row, column).invoke();
         row = setRowAndColumn.getRow();
         column = setRowAndColumn.getColumn();
 
         location = new Location(row, column);
     }
 
-    public void create(){
+    public void create() {
+        boolean locationUnavailable = true;
         Messages.squirrelLocation();
-        Messages.getRow();
-        try{int row = Integer.parseInt(scanner.nextLine());}
-        catch(Exception e){Messages.invalidInput();}
+        while (locationUnavailable) {
+            try {
+                Messages.getRow();
+                row = Integer.parseInt(scanner.nextLine());
+            } catch (Exception e) {
+                Messages.invalidInput();
+            }
+            try {
+                Messages.getColumn();
+                column = Integer.parseInt(scanner.nextLine());
+            } catch (Exception e) {
+                Messages.invalidInput();
+            }
+            locationUnavailable = locNotAvailable(row, column);
+            if(locationUnavailable) Messages.locationInvalid();
+        }
     }
 
     public void setLocation(int row, int column) {
@@ -78,10 +93,7 @@ public class Squirrel implements Movable {
     }
 
     public boolean locNotAvailable(int row, int column) {
-        if (locIsOutsideMaze(row, column)) return true;
-
-        Entity entity = maze.getEntity(row, column);
-        return entity instanceof Wall;
+        return !locAvailable(row, column);
     }
 
     private boolean locIsOutsideMaze(int row, int column) {
@@ -151,12 +163,10 @@ public class Squirrel implements Movable {
     }
 
     private class SetRowAndColumn {
-        private boolean foundAvailableLoc;
         private int row;
         private int column;
 
-        public SetRowAndColumn(boolean foundAvailableLoc, int row, int column) {
-            this.foundAvailableLoc = foundAvailableLoc;
+        public SetRowAndColumn(int row, int column) {
             this.row = row;
             this.column = column;
         }
@@ -170,6 +180,7 @@ public class Squirrel implements Movable {
         }
 
         public SetRowAndColumn invoke() {
+            boolean foundAvailableLoc = false;
             while (!foundAvailableLoc) {
                 if (row == -1) {
                     SetRow setRow = new SetRow(row).invoke();
