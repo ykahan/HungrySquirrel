@@ -11,8 +11,8 @@ import Messages.Messages;
 
 public class Squirrel implements Movable {
     private Location location;
-    private Scanner scanner = new Scanner(System.in);
     private Maze maze;
+    private Scanner scanner = new Scanner(System.in);
     private int pointsCollected = 0;
     private int totalNutsEaten = 0;
 
@@ -23,7 +23,6 @@ public class Squirrel implements Movable {
     public Squirrel() {
         maze = new Maze();
         create(); // gets row and column, validates, create location
-
     }
 
     public Squirrel(int row, int column) {
@@ -68,40 +67,35 @@ public class Squirrel implements Movable {
                 continue;
             }
             locationUnavailable = locNotAvailable(row, column);
-            if(locationUnavailable) Messages.locationInvalid();
+            if (locationUnavailable) Messages.locationInvalid();
         }
-        location = new Location(row, column);
+        location = new Location(row - 1, column - 1);  // convert user-input into zero-based equivalent
     }
 
-    public void move(char direction){
+    public void move(char direction) {
 
         int row = location.getRow();
         int column = location.getColumn();
 
-        switch(direction){
-            case('u'):
-            case('U'):
+        switch (Character.toUpperCase(direction)) {
+            case ('W'):
                 row = row - 1;
                 break;
-            case('l'):
-            case('L'):
+            case ('A'):
                 column = column - 1;
                 break;
-            case('d'):
-            case('D'):
+            case ('S'):
                 row = row + 1;
                 break;
-            case('r'):
-            case('R'):
+            case ('D'):
                 column = column + 1;
                 break;
             default:
                 break;
         }
 
-        if(locAvailable(row, column)) setLocation(row, column);
+        if (locAvailable(row, column)) setLocation(row, column);
         else Messages.invalidInput();
-
     }
 
     public void setLocation(int row, int column) {
@@ -131,15 +125,15 @@ public class Squirrel implements Movable {
     }
 
     private class SetRow {
-        private boolean myResult;
+        private boolean isNotValidInteger;
         private int row;
 
         public SetRow(int row) {
             this.row = row;
         }
 
-        boolean is() {
-            return myResult;
+        boolean isInvalidInteger() {
+            return isNotValidInteger;
         }
 
         public int getRow() {
@@ -152,24 +146,24 @@ public class Squirrel implements Movable {
                 row = Integer.parseInt(scanner.nextLine());
             } catch (Exception e) {
                 Messages.invalidInput();
-                myResult = true;
+                isNotValidInteger = true;
                 return this;
             }
-            myResult = false;
+            isNotValidInteger = false;
             return this;
         }
     }
 
     private class SetColumn {
-        private boolean myResult;
+        private boolean isNotValidInteger;
         private int column;
 
         public SetColumn(int column) {
             this.column = column;
         }
 
-        boolean is() {
-            return myResult;
+        boolean isNotValidInteger() {
+            return isNotValidInteger;
         }
 
         public int getColumn() {
@@ -182,10 +176,10 @@ public class Squirrel implements Movable {
                 column = Integer.parseInt(scanner.nextLine());
             } catch (Exception e) {
                 Messages.invalidInput();
-                myResult = true;
+                isNotValidInteger = true;
                 return this;
             }
-            myResult = false;
+            isNotValidInteger = false;
             return this;
         }
     }
@@ -210,13 +204,13 @@ public class Squirrel implements Movable {
         public SetRowAndColumn invoke() {
             boolean foundAvailableLoc = false;
             while (!foundAvailableLoc) {
-                if (row == -1) {
-                    SetRow setRow = new SetRow(row).invoke();
-                    if (setRow.is()) continue;
-                    row = setRow.getRow();
-                }
+
+                SetRow setRow = new SetRow(row).invoke();
+                if (setRow.isInvalidInteger()) continue;
+                row = setRow.getRow();
+
                 SetColumn setColumn = new SetColumn(column).invoke();
-                if (setColumn.is()) continue;
+                if (setColumn.isNotValidInteger()) continue;
                 column = setColumn.getColumn();
 
                 foundAvailableLoc = locAvailable(row, column);
