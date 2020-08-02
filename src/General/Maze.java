@@ -11,6 +11,7 @@ public class Maze {
     private static final int MAX_COLUMN = 50;
     private static Entity[][] maze;
     private static Scanner scanner;
+    private static final int MAX_NUTS = 5;
 
     public Maze() {
         maze = new Entity[MAX_ROW][MAX_COLUMN];
@@ -33,6 +34,10 @@ public class Maze {
         } catch (Exception e) {
             System.out.println(e.toString());
         }
+    }
+
+    public int getMaxNuts(){
+        return this.MAX_NUTS;
     }
 
     private static void defineScanner() {
