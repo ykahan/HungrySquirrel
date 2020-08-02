@@ -45,6 +45,7 @@ public class Maze {
     }
 
     public static Entity getEntity(int newRow, int newColumn) {
+
         return maze[newRow][newColumn];
     }
 

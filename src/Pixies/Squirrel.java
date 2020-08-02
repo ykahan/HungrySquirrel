@@ -17,11 +17,12 @@ public class Squirrel implements Movable {
     private int totalNutsEaten = 0;
 
     public static void main(String[] args) {
-        Squirrel sq = new Squirrel();
+        Maze maze = new Maze();
+        Squirrel sq = new Squirrel(maze);
     }
 
-    public Squirrel() {
-        maze = new Maze();
+    public Squirrel(Maze maze) {
+        this.maze = maze;
         create(); // gets row and column, validates, create location
     }
 
