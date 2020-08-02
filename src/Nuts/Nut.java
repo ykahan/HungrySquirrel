@@ -3,6 +3,7 @@ package Nuts;
 import General.Entity;
 import General.Location;
 import General.Maze;
+import General.OpenSpace;
 import Pixies.Movable;
 import Walls.Wall;
 
@@ -31,9 +32,7 @@ public abstract class Nut extends Entity {
     }
 
     private boolean locationAvailableForNut(Entity entity){
-        if(entity instanceof Wall) return false;
-        if(entity instanceof Movable) return false;
-        if(entity instanceof Nut) return false;
-        return true;
+        if(entity instanceof OpenSpace) return true;
+        return false;
     }
 }

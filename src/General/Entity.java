@@ -1,7 +1,7 @@
 package General;
 
 public abstract class Entity {
-    private char symbol;
+    private char SYMBOL;
     private int row;
     private int column;
 
@@ -12,6 +12,9 @@ public abstract class Entity {
         return oldEntity;
     }
 
+    public char getSymbol(){
+        return this.SYMBOL;
+    }
 
     private boolean isWall(Entity entity){
         return entity.getClass().getName().contentEquals("Wall");

@@ -63,6 +63,7 @@ public class Maze {
                 }
 
                 Entity entity = getEntity(row, column);
+                description += entity.getSymbol();
                 if (entity instanceof Wall) {
                     description += "*";
                 } else if (entity instanceof OpenSpace) {

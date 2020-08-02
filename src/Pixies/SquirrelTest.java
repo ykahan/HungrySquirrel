@@ -50,7 +50,8 @@ class SquirrelTest {
 
 //    @Test
     void testParamaterlessConstructor(){
-        Squirrel squirrel = new Squirrel();
+        Maze maze = new Maze();
+        Squirrel squirrel = new Squirrel(maze);
         assertTrue(squirrel instanceof Squirrel);
     }
 

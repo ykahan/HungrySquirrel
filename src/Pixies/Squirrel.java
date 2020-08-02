@@ -9,12 +9,13 @@ import java.util.Scanner;
 
 import Messages.Messages;
 
-public class Squirrel implements Movable {
+public class Squirrel extends Entity implements Movable {
     private Location location;
     private Maze maze;
     private Scanner scanner = new Scanner(System.in);
     private int pointsCollected = 0;
     private int totalNutsEaten = 0;
+    private final char SYMBOL = '@';
 
     public static void main(String[] args) {
         Maze maze = new Maze();
@@ -71,6 +72,7 @@ public class Squirrel implements Movable {
             if (locationUnavailable) Messages.locationInvalid();
         }
         location = new Location(row - 1, column - 1);  // convert user-input into zero-based equivalent
+        maze.setEntity(this, location.getRow(), location.getColumn());
     }
 
     public void move(char direction) {
