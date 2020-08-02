@@ -4,8 +4,6 @@ import General.Entity;
 import General.Location;
 import General.Maze;
 import General.OpenSpace;
-import Pixies.Movable;
-import Walls.Wall;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -23,24 +21,28 @@ public abstract class Nut extends Entity {
     }
 
     public void create(){
-        boolean locationAvailableForNut = false;
-        while(!locationAvailableForNut) {
-            int row = ThreadLocalRandom.current().nextInt(0, maze.getMaxRow());
-            int column = ThreadLocalRandom.current().nextInt(0, maze.getMaxColumn());
-            Entity entity = maze.getEntity(row, column);
-            locationAvailableForNut = locationAvailableForNut(entity);
-            if(locationAvailableForNut) {
-                this.location = new Location(row, column);
+        boolean locationAvailable = false;
+        while(!locationAvailable) {
+            location = getRandomLocation();
+            locationAvailable = locationAvailable(location.getRow(), location.getColumn());
+            if(locationAvailable) {
                 maze.setEntity(this, location.getRow(), location.getColumn());
             }
         }
     }
 
-    private boolean locationAvailableForNut(Entity entity){
+    private Location getRandomLocation(){
+        int row = ThreadLocalRandom.current().nextInt(0, maze.getMaxRow());
+        int column = ThreadLocalRandom.current().nextInt(0, maze.getMaxColumn());
+        return new Location(row, column);
+    }
+
+    private boolean locationAvailable(int row, int column){
+        Entity entity = maze.getEntity(row, column);
         if(entity instanceof OpenSpace) return true;
         return false;
     }
-    
+
     public int getNutritionPoints(){
         return this.nutritionPoints;
     }
