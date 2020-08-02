@@ -24,7 +24,7 @@ public abstract class Nut extends Entity {
         boolean locationAvailable = false;
         while(!locationAvailable) {
             location = getRandomLocation();
-            locationAvailable = locationAvailable(location.getRow(), location.getColumn());
+            locationAvailable = locationAvailable();
             if(locationAvailable) {
                 maze.setEntity(this, location.getRow(), location.getColumn());
             }
@@ -37,8 +37,8 @@ public abstract class Nut extends Entity {
         return new Location(row, column);
     }
 
-    private boolean locationAvailable(int row, int column){
-        Entity entity = maze.getEntity(row, column);
+    private boolean locationAvailable(){
+        Entity entity = maze.getEntity(location.getRow(), location.getColumn());
         if(entity instanceof OpenSpace) return true;
         return false;
     }

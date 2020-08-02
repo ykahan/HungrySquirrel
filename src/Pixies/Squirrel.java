@@ -33,6 +33,12 @@ public class Squirrel extends Entity implements Movable {
         location = new Location(row, column);
     }
 
+    public boolean locationAvailable(){
+        Entity entity = maze.getEntity(location.getRow(), location.getColumn());
+        if(entity instanceof Wall) return false;
+        return true;
+    }
+
     private int getNutsEaten() {
         return totalNutsEaten;
     }
