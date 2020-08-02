@@ -10,15 +10,15 @@ import Walls.Wall;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Nut extends Entity {
-    private static final int TOTAL_NUTS = 5;
     private static int nutritionPoints;
     private Variety name;
     private Maze maze;
     private Location location;
 
-    public Nut(Maze maze, char symbol){
+    public Nut(Maze maze, char symbol, int nutritionPoints){
         super(symbol);
         this.maze = maze;
+        this.nutritionPoints = nutritionPoints;
         create();
     }
 
@@ -39,5 +39,9 @@ public abstract class Nut extends Entity {
     private boolean locationAvailableForNut(Entity entity){
         if(entity instanceof OpenSpace) return true;
         return false;
+    }
+    
+    public int getNutritionPoints(){
+        return this.nutritionPoints;
     }
 }
