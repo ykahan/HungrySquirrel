@@ -1,19 +1,23 @@
 package General;
 
 public abstract class Entity {
-    private char SYMBOL;
+    private char symbol;
     private int row;
     private int column;
 
-    public Entity put(int newRow, int newColumn){
-        Entity oldEntity = Maze.getEntity(newRow, newColumn);
+    public Entity(char symbol){
+        this.symbol = symbol;
+    }
+
+    public Entity put(int row, int column){
+        Entity oldEntity = Maze.getEntity(row, column);
         boolean isWall = isWall(oldEntity);
-        if(!isWall) Maze.setEntity(this, newRow, newColumn);
+        if(!isWall) Maze.setEntity(this, row, column);
         return oldEntity;
     }
 
     public char getSymbol(){
-        return this.SYMBOL;
+        return this.symbol;
     }
 
     private boolean isWall(Entity entity){

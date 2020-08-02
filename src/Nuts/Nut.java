@@ -16,19 +16,24 @@ public abstract class Nut extends Entity {
     private Maze maze;
     private Location location;
 
-    public Nut(){
+    public Nut(Maze maze, char symbol){
+        super(symbol);
         this.maze = maze;
         create();
     }
 
     public void create(){
-        int row = ThreadLocalRandom.current().nextInt(0, maze.getMaxRow());
-        int column = ThreadLocalRandom.current().nextInt(0, maze.getMaxColumn());
-        Entity entity = maze.getEntity(row, column);
-        if(locationAvailableForNut(entity)) {
-            this.location = new Location(row, column);
-            maze.setEntity(this, location.getRow(), location.getColumn());
-        } else create();
+        boolean locationAvailableForNut = false;
+        while(!locationAvailableForNut) {
+            int row = ThreadLocalRandom.current().nextInt(0, maze.getMaxRow());
+            int column = ThreadLocalRandom.current().nextInt(0, maze.getMaxColumn());
+            Entity entity = maze.getEntity(row, column);
+            locationAvailableForNut = locationAvailableForNut(entity);
+            if(locationAvailableForNut) {
+                this.location = new Location(row, column);
+                maze.setEntity(this, location.getRow(), location.getColumn());
+            }
+        }
     }
 
     private boolean locationAvailableForNut(Entity entity){

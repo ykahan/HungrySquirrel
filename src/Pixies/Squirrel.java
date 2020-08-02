@@ -15,7 +15,6 @@ public class Squirrel extends Entity implements Movable {
     private Scanner scanner = new Scanner(System.in);
     private int pointsCollected = 0;
     private int totalNutsEaten = 0;
-    private final char SYMBOL = '@';
 
     public static void main(String[] args) {
         Maze maze = new Maze();
@@ -23,11 +22,13 @@ public class Squirrel extends Entity implements Movable {
     }
 
     public Squirrel(Maze maze) {
+        super('@');
         this.maze = maze;
         create(); // gets row and column, validates, create location
     }
 
     public Squirrel(int row, int column) {
+        super('@');
         maze = new Maze();
         location = new Location(row, column);
     }

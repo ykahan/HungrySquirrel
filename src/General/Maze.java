@@ -1,5 +1,6 @@
 package General;
 
+import Pixies.Squirrel;
 import Walls.Wall;
 
 import java.io.File;
@@ -55,24 +56,20 @@ public class Maze {
 
     @Override
     public String toString() {
-        String description = "";
+        StringBuilder description = new StringBuilder();
         for (int row = 0; row < MAX_ROW; row++) {
             for (int column = 0; column < MAX_COLUMN; column++) {
                 if (column == 0 && row > 0) {
-                    description += "\n";
+                    description.append("\n");
                 }
 
                 Entity entity = getEntity(row, column);
-                description += entity.getSymbol();
-                if (entity instanceof Wall) {
-                    description += "*";
-                } else if (entity instanceof OpenSpace) {
-                    description += " ";
-                }
+                String symbol = Character.toString(entity.getSymbol());
+                description.append(symbol);
 
             }
         }
-        return description;
+        return description.toString();
     }
 
     public void display() {

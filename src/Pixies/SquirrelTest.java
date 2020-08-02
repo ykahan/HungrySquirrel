@@ -55,4 +55,11 @@ class SquirrelTest {
         assertTrue(squirrel instanceof Squirrel);
     }
 
+    @Test
+    void symbolIsAtSymbol(){
+        Squirrel squirrel = new Squirrel(14, 14);
+        char squirrelSymbol = squirrel.getSymbol();
+        assertTrue(squirrelSymbol == '@');
+    }
+
 }
