@@ -1,6 +1,11 @@
 package Nuts;
 
-public class PoisonousCashew {
+import General.Maze;
+
+public class PoisonousCashew extends Nut{
     private final int nutritionPoints = -15;
-    private final char symbol = 'C';
+
+    public PoisonousCashew (Maze maze){
+        super(maze,'C');
+    }
 }

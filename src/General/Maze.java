@@ -11,7 +11,7 @@ public class Maze {
     private static final int MAX_COLUMN = 50;
     private static Entity[][] maze;
     private static Scanner scanner;
-    private static final int MAX_NUTS = 5;
+    private static final int MAX_NUTS = 10;
 
     public Maze() {
         maze = new Entity[MAX_ROW][MAX_COLUMN];
