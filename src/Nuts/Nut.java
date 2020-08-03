@@ -1,9 +1,6 @@
 package Nuts;
 
-import General.Entity;
-import General.Location;
-import General.Maze;
-import General.OpenSpace;
+import General.*;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -21,11 +18,11 @@ public abstract class Nut extends Entity {
     }
 
     public void create(){
-        boolean locationAvailable = false;
-        while(!locationAvailable) {
+        boolean locAvailable = false;
+        while(!locAvailable) {
             location = getRandomLocation();
-            locationAvailable = locationAvailable();
-            if(locationAvailable) {
+            locAvailable = locAvailable();
+            if(locAvailable) {
                 maze.setEntity(this, location.getRow(), location.getColumn());
             }
         }
@@ -37,7 +34,7 @@ public abstract class Nut extends Entity {
         return new Location(row, column);
     }
 
-    private boolean locationAvailable(){
+    private boolean locAvailable(){
         Entity entity = maze.getEntity(location.getRow(), location.getColumn());
         if(entity instanceof OpenSpace) return true;
         return false;

@@ -3,6 +3,8 @@ package Pixies;
 import General.Entity;
 import General.Location;
 import General.Maze;
+import General.OpenSpace;
+import Nuts.Nut;
 import Walls.Wall;
 
 import java.util.Scanner;
@@ -31,12 +33,6 @@ public class Squirrel extends Entity implements Movable {
         super('@');
         maze = new Maze();
         location = new Location(row, column);
-    }
-
-    public boolean locationAvailable(){
-        Entity entity = maze.getEntity(location.getRow(), location.getColumn());
-        if(entity instanceof Wall) return false;
-        return true;
     }
 
     private int getNutsEaten() {
@@ -86,7 +82,7 @@ public class Squirrel extends Entity implements Movable {
 
         int row = location.getRow();
         int column = location.getColumn();
-
+        
         switch (Character.toUpperCase(direction)) {
             case ('W'):
                 row = row - 1;
@@ -104,8 +100,20 @@ public class Squirrel extends Entity implements Movable {
                 break;
         }
 
-        if (locAvailable(row, column)) setLocation(row, column);
+        if (locAvailable(row, column)) {
+            maze.setEntity(new OpenSpace(), location.getRow(), location.getColumn());
+            getNut(row, column);
+            setLocation(row, column);
+        }
         else Messages.invalidInput();
+    }
+
+    private void getNut(int row, int column){
+        Entity entity = maze.getEntity(row, column);
+        if (entity instanceof Nut) {
+            this.totalNutsEaten = this.totalNutsEaten + 1;
+            this.pointsCollected = this.pointsCollected + ((Nut) entity).getNutritionPoints();
+        }
     }
 
     public void setLocation(int row, int column) {
