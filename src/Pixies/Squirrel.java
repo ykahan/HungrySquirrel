@@ -82,7 +82,7 @@ public class Squirrel extends Entity implements Movable {
 
         int row = location.getRow();
         int column = location.getColumn();
-        
+
         switch (Character.toUpperCase(direction)) {
             case ('W'):
                 row = row - 1;
@@ -104,6 +104,7 @@ public class Squirrel extends Entity implements Movable {
             maze.setEntity(new OpenSpace(), location.getRow(), location.getColumn());
             getNut(row, column);
             setLocation(row, column);
+            maze.setEntity(this, location.getRow(), location.getColumn());
         }
         else Messages.invalidInput();
     }

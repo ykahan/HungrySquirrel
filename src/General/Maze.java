@@ -12,11 +12,21 @@ public class Maze {
     private static Entity[][] maze;
     private static Scanner scanner;
     private static final int MAX_NUTS = 10;
+    private int edibleNuts;
 
     public Maze() {
         maze = new Entity[MAX_ROW][MAX_COLUMN];
+        edibleNuts = MAX_NUTS;
         defineScanner();
         create();
+    }
+
+    public int getEdibleNuts(){
+        return this.edibleNuts;
+    }
+
+    public void setEdibleNuts(int nuts){
+        this.edibleNuts = nuts;
     }
 
     public static void create() {
