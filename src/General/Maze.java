@@ -98,4 +98,16 @@ public class Maze {
     public int getMaxColumn(){
         return MAX_COLUMN;
     }
+
+    public boolean isValidDirection(char directionChar) {
+        String dirString = Character.toString(directionChar).toUpperCase();
+        switch(dirString){
+            case("W"):
+            case("A"):
+            case("S"):
+            case("D"):
+                return true;
+        }
+        return false;
+    }
 }

@@ -3,7 +3,6 @@ package Main;
 import General.Maze;
 import Messages.Messages;
 import Nuts.Almond;
-import Nuts.Nut;
 import Nuts.Peanut;
 import Nuts.PoisonousCashew;
 import Pixies.Squirrel;
@@ -27,14 +26,19 @@ public class HungrySquirrelGame {
                 poisonNuts = poisonNuts + 1;
             }
         }
+        maze.setEdibleNuts(maze.getMaxNuts() - poisonNuts);
 
         while(maze.getEdibleNuts() > 0) {
-            maze.setEdibleNuts(maze.getMaxNuts() - poisonNuts);
             maze.display();
             Messages.movementDirections();
             String directionString = scanner.nextLine();
             char directionChar = directionString.charAt(0);
-            squirrel.move(directionChar);
+            if(maze.isValidDirection(directionChar)) squirrel.move(directionChar);
+            else {
+                Messages.invalidInput();
+                Messages.acknowledge();
+                scanner.nextLine();
+            }
         }
 
     }

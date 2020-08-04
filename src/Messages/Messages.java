@@ -29,4 +29,8 @@ public class Messages {
         sb.append("\nPress D to move right");
         System.out.println(sb.toString());
     }
+
+    public static void acknowledge() {
+        System.out.println("Tap any key to continue.");
+    }
 }
